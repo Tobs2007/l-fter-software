@@ -10,18 +10,23 @@ CRGB fan3[9];
 #define BRIGHTNESS 100
 
 void setup() {
-  delay(20);  // 3 second delay for recovery
 
   // tell FastLED about the LED strip configuration
-  FastLED.addLeds<WS2811, 6, GRB>(fan1, 9).setCorrection(TypicalLEDStrip);
-  FastLED.addLeds<WS2811, 3, GRB>(fan2, 9).setCorrection(TypicalLEDStrip);
-  FastLED.addLeds<WS2811, 2, GRB>(fan3, 9).setCorrection(TypicalLEDStrip);
+  FastLED.addLeds<WS2811, 21, GRB>(fan1, 9).setCorrection(TypicalLEDStrip);
+  FastLED.addLeds<WS2811, 22, GRB>(fan2, 9).setCorrection(TypicalLEDStrip);
+  FastLED.addLeds<WS2811, 24, GRB>(fan3, 9).setCorrection(TypicalLEDStrip);
 
   // set master brightness control
   FastLED.setBrightness(BRIGHTNESS);
-  Serial.begin(250000);
+  delay(200);  // 3 second delay for recovery
+  Serial.begin(9600);
   Serial.setTimeout(1);
+  fan1[1] = CRGB(255, 255, 255);
+  fan2[1] = CRGB(255, 255, 255);
+  fan3[1] = CRGB(255, 255, 255);
+  delay(200);
   FastLED.show();
+  delay(2000);
 }
 void loop() {
   Serial.print("restart");
@@ -36,7 +41,7 @@ void loop() {
   while (!Serial.available()) {}
   int B = Serial.readString().toInt();
 
-  
+
   switch (fan) {
     case 0:
       fan1[index] = CRGB(R, G, B);
@@ -49,5 +54,4 @@ void loop() {
       break;
   }
   FastLED.show();
-
 }
