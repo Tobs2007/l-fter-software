@@ -18,7 +18,8 @@ layout = [  [sg.Text('Choose theme')],
              [sg.Text("Global color")],
              [sg.Text("R"),sg.InputText(default_text='255',enable_events=True,key='R',size=(5,1))],
              [sg.Text("G"),sg.InputText(default_text='30',enable_events=True,key='G',size=(5,1))],
-             [sg.Text("B"),sg.InputText(default_text='0',enable_events=True,key='B',size=(5,1))]]
+             [sg.Text("B"),sg.InputText(default_text='0',enable_events=True,key='B',size=(5,1))],
+             [sg.Text("reopen this window with strg+alt+W")]]
 global state
 state=1
 global fps
@@ -523,6 +524,8 @@ def main():#main loop controlling what scheme is displayed
         elif state==4:
             fps = 20
             meter(0.0005)
+        if t2.is_alive()==False:
+            break
 
 #guiloop
 def gui():
